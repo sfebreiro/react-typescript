@@ -19,12 +19,14 @@ export const useCounter = ({ maxCount = 10 }) => {
         tl.current.to(elementToAnimate.current, { y: -10, duration: 0.2, ease: 'ease.out' })
             .to(elementToAnimate.current, { y: 0, duration: 1, ease: 'bounce.out' })
             .pause();
+
+        console.log('LAYOUTEFFECT')
     }, [])
 
     useEffect(() => {
       
         tl.current.play(0);
-
+        console.log('USEEFFECT')
     }, [counter])
     
 
