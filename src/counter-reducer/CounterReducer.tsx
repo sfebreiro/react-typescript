@@ -1,10 +1,7 @@
 import { useReducer } from 'react'
-
-interface CounterState {
-  counter: number
-  previous: number
-  changes: number
-}
+import { CounterState } from './interfaces/counterInterfaces';
+import { counterReducer } from './state/counterReducer';
+import * as CounterActions from './actions/actions';
 
 const INITIAL_STATE: CounterState = {
   counter: 0,
@@ -12,48 +9,21 @@ const INITIAL_STATE: CounterState = {
   changes: 0
 }
 
-type CounterAction = 
-  | { type: 'increaseBy', payload: {value: number} }
-  | { type: 'reset' }
-
-const counterReducer = (state: CounterState, action: CounterAction): CounterState => {
-  switch (action.type) {
-    case 'reset':
-      return {
-        counter: 0,
-        previous: 0,
-        changes: 0
-      };
-    
-    case 'increaseBy':
-      return {
-        counter: state.counter + action.payload.value,
-        previous: state.counter,
-        changes: state.changes + 1
-      };
-    
-      break;
-  
-    default:
-        return state;
-  }
-}
-
 export const CounterReducerComponent = () => {
   
   const [counterState, dispatch] = useReducer(counterReducer, INITIAL_STATE)
 
   const handleReset = () => {
-    dispatch({type: 'reset'})
+    dispatch(CounterActions.doReset())
   }
 
   const handleIncreaseBy = (value: number) => {
-    dispatch({type: 'increaseBy', payload: {value}})
+    dispatch(CounterActions.doIncreaseBy(value))
   }
 
   return (
     <>
-        <h1>Counter Reducer</h1>
+        <h1>Counter Reducer Segmentado</h1>
         <pre>
           {JSON.stringify(counterState, null, 2)}
         </pre>
